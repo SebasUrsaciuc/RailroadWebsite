@@ -1,42 +1,41 @@
 const loadingBar = document.getElementById("loading-bar");
 const subpageTitle = document.getElementById("subpage-title");
 const subpageContent = document.getElementById("subpage-content");
-
-function XHR(url, loadend, error = () => {}) {
-    const xhr = new XMLHttpRequest();
-
-    xhr.onloadstart = function () {
+let loadQueue = 0;
+function loading() {
+    if(loadQueue === 0)
         loadingBar.classList.add("loading");
-    };
-    xhr.onprogress = function (e) {
-        loadingBar.style.width = `${e.loaded / e.total * 100}%`;
-        console.log(e.loaded, e.total, e.loaded / e.total * 100)
-    };
-    xhr.onloadend = function () {
-        loadingBar.classList.remove("loading");
-    };
-    xhr.onload = function() {
-        if (this.readyState === 4 && this.status === 200)
-            loadend(this.responseText);
-        else if(this.status === 404) {
-            error();
-        }
-    }
 
-    xhr.open("GET", url);
-    xhr.send();
+    loadQueue++;
+}
+function loaded() {
+    loadQueue = Math.max(0, loadQueue - 1);
+
+    if(loadQueue === 0)
+        loadingBar.classList.remove("loading");
 }
 
 function loadSubpage([title, path]) {
-    XHR(`./pages/wiki/${path}.html`, response => {
-        subpageTitle.innerHTML = title;
-        subpageContent.innerHTML = response;
-    }, () => {
-        if(path !== "error")
-            loadSubpage([title, "error"]);
-        else
-            alert("Something went wrong loading the error page...");
-    });
+    loading();
+    fetch(`./pages/wiki/${path}.html`)
+        .then(response => {
+            if(response.ok)
+                return response.text();
+            else
+                throw "The response is not OK";
+        }).then(data => {
+            subpageTitle.innerHTML = title;
+            subpageContent.innerHTML = data;
+
+            loaded();
+        }).catch(err => {
+            loaded();
+
+            if(path !== "error")
+                loadSubpage([title, "error"]);
+            else
+                alert("Something went wrong loading the error page...");
+        });
 }
 
 function appendTree(obj, elem, stage = 0) {
@@ -83,6 +82,11 @@ function appendTree(obj, elem, stage = 0) {
 
 const sideBar = document.getElementById("sidebar");
 
-XHR("./res/wiki.json", data => {
-    appendTree(JSON.parse(data), sideBar);
-});
+loading();
+fetch("./res/wiki.json")
+    .then(response => response.json())
+    .then(data => {
+        appendTree(data, sideBar);
+
+        loaded();
+    });
