@@ -188,43 +188,10 @@ kbd {
     left: 0;
     height: 0;
     background: dodgerblue;
-    animation: load 3s infinite;
-    transition: height 200ms linear;
 
     --r: 1rem;
 }
 
 #loading-bar.loading {
     height: 0.4rem;
-}
-
-@keyframes load {
-    0% {
-        width: 0;
-        left: 0;
-
-        border-radius: 0 var(--r) var(--r) 0;
-    }
-
-    30% {
-        border-radius: 0 var(--r) var(--r) 0;
-    }
-
-    50% {
-        width: 100%;
-        left: 0;
-
-        border-radius: 0 0 0 0;
-    }
-
-    70% {
-        border-radius: var(--r) 0 0 var(--r);
-    }
-
-    100% {
-        width: 0;
-        left: 100%;
-
-        border-radius: var(--r) 0 0 var(--r);
-    }
 }

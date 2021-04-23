@@ -1,41 +1,41 @@
 const loadingBar = document.getElementById("loading-bar");
 const subpageTitle = document.getElementById("subpage-title");
 const subpageContent = document.getElementById("subpage-content");
-let loadQueue = 0;
-function loading() {
-    if(loadQueue === 0)
+
+function XHR(url, loadend, error = () => {}) {
+    const xhr = new XMLHttpRequest();
+
+    xhr.onloadstart = function () {
         loadingBar.classList.add("loading");
-
-    loadQueue++;
-}
-function loaded() {
-    loadQueue = Math.max(0, loadQueue - 1);
-
-    if(loadQueue === 0)
+    };
+    xhr.onprogress = function (e) {
+        loadingBar.style.width = `${e.loaded / e.total * 100}%`;
+    };
+    xhr.onloadend = function () {
         loadingBar.classList.remove("loading");
+    };
+    xhr.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200)
+            loadend(this.responseText);
+        else if(this.status === 404) {
+            error();
+        }
+    }
+
+    xhr.open("GET", url);
+    xhr.send();
 }
 
 function loadSubpage([title, path]) {
-    loading();
-    fetch(`./pages/wiki/${path}.html`)
-        .then(response => {
-            if(response.ok)
-                return response.text();
-            else
-                throw "The response is not OK";
-        }).then(data => {
-            subpageTitle.innerHTML = title;
-            subpageContent.innerHTML = data;
-
-            loaded();
-        }).catch(err => {
-            loaded();
-
-            if(path !== "error")
-                loadSubpage([title, "error"]);
-            else
-                alert("Something went wrong loading the error page...");
-        });
+    XHR(`./pages/wiki/${path}.html`, response => {
+        subpageTitle.innerHTML = title;
+        subpageContent.innerHTML = response;
+    }, () => {
+        if(path !== "error")
+            loadSubpage([title, "error"]);
+        else
+            alert("Something went wrong loading the error page...");
+    });
 }
 
 function appendTree(obj, elem, stage = 0) {
@@ -82,11 +82,6 @@ function appendTree(obj, elem, stage = 0) {
 
 const sideBar = document.getElementById("sidebar");
 
-loading();
-fetch("./res/wiki.json")
-    .then(response => response.json())
-    .then(data => {
-        appendTree(data, sideBar);
-
-        loaded();
-    });
+XHR("./res/wiki.json", data => {
+    appendTree(JSON.parse(data), sideBar);
+});
