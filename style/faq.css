@@ -1,0 +1,11 @@
+#header {
+    background: var(--bg);
+    box-shadow: var(--b-shadow);
+}
+
+#wip {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 4rem;
+}

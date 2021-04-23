@@ -1,0 +1,15 @@
+{
+  "Installation": "inst",
+  "Starting Up": {
+    "First Mod Project": "su_create",
+    "Running The Thing": "su_run",
+    "Texture Editor": "su_tex-edit",
+    "Model Editor": "su_mod-edit"
+  },
+  "Plugins": "pl",
+  "Customization": {
+    "Colors and Themes": "custom_c-t",
+    "Syntax Highlighting": "custom_sh",
+    "Layout Tabs": "custom_lay-t"
+  }
+}

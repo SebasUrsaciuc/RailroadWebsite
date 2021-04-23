@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --primary: #FFFFFF;
+        --primary-soft: #BBBBBB;
+        --secondary: #000000;
+        --secondary-soft: #333333;
+        --alpha: #00000016;
+
+        --atag: #004499;
+
+        --sb-bg: #E6E6E6;
+        --sbt-bg: #909090;
+        --sbt_h-bg: #707070;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary: #222222;
+        --primary-soft: #555555;
+        --secondary: #FFFFFFE0;
+        --secondary-soft: #AAAAAA;
+        --alpha: #FFFFFF16;
+
+        --atag: #0066DD;
+
+        --sb-bg: #181818;
+        --sbt-bg: #505050;
+        --sbt_h-bg: #707070;
+    }
+}
+
+:root {
+    --shadow: #00000044;
+}
+
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+*:focus {
+    outline: 0.3rem solid var(--secondary);
+    outline-offset: 0.5rem;
+}
+
+html {
+    font-size: 62.5%;
+
+    font-family: Poppins, serif;
+}
+
+body {
+    background: var(--primary);
+
+    color: var(--secondary);
+}
+
+#header {
+    display: flex;
+    width: 100%;
+
+    justify-content: center;
+
+    --bg: var(--primary);
+    --b-shadow: 0 0.3rem 0.6rem var(--shadow);
+}
+
+#header a {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--secondary);
+
+    margin: 1.5rem;
+    font-size: 2rem;
+}
+
+#header a:hover {
+    box-shadow: 0 0.3rem 0 var(--secondary-soft);
+}
+
+#header .easter-egg:not(:focus) {
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+
+
+/* SCROLL BAR */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--sbt-bg) var(--sb-bg);
+}
+
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background: var(--sb-bg);
+    box-shadow: inset 3px 0 6px var(--shadow);
+}
+
+*::-webkit-scrollbar-corner {
+    display: none;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: var(--sbt-bg);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--sbt_h-bg);
+}
+
+/* SELECTION */
+*::selection {
+    color: var(--secondary-soft);
+    background: var(--primary-soft);
+}

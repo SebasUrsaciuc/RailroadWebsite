@@ -1,0 +1,230 @@
+#header {
+    background: var(--bg);
+    box-shadow: var(--b-shadow);
+}
+
+body {
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper {
+    width: 100%;
+    position: relative;
+
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+
+    overflow: hidden;
+}
+
+.wrapper > * {
+    overflow-y: auto;
+}
+
+#sidebar {
+    width: 25rem;
+    padding-top: 1rem;
+
+    border-right: 0.1rem solid var(--secondary-soft);
+}
+
+#subpage {
+    flex: 1;
+
+    padding: 3rem;
+}
+
+#subpage-title {
+    font-size: 4rem;
+}
+
+#subpage-content {
+    font-size: 1.6rem;
+    max-width: 100ch;
+}
+
+
+
+.tree {
+    font-size: 1.3rem;
+}
+
+.tree * {
+    display: inline-block;
+    width: 100%;
+}
+
+.tree ul {
+    list-style-type: none;
+}
+
+.tree-item, .subtree-label {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-drag: none;
+
+    --lp: calc(var(--stage) * 1.6rem);
+    padding: 0.8rem 0;
+    padding-left: var(--lp);
+}
+
+.tree-item:hover, .subtree-label:hover {
+    background: var(--alpha);
+}
+
+.subtree-label {
+    position: relative;
+}
+
+.subtree-label:before {
+    content: "►";
+
+    font-size: 0.8rem;
+    position: absolute;
+    left: calc(var(--lp) - 2ch);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.subtree-label.enabled:before {
+    content: "▼";
+}
+
+.subtree {
+    display: none;
+}
+
+.subtree-label.enabled + .subtree {
+    display: initial;
+}
+
+
+
+#subpage-content a {
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--atag);
+}
+
+#subpage-content a:hover {
+    text-decoration: underline;
+}
+
+.error, .alert, .info {
+    --r: 0.6rem;
+
+    color: var(--secondary-soft);
+    padding: 1.2rem 1.2rem 1.2rem 2rem;
+    border-radius: var(--r);
+
+    background: var(--c);
+    position: relative;
+    word-break: break-word;
+    overflow: hidden;
+}
+
+.error:before, .alert:before, .info:before {
+    content: '';
+    background: var(--c);
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: var(--r);
+}
+
+.error {
+    --c: #FF000066;
+}
+
+.alert {
+    --c: #FF990066;
+}
+
+.info {
+    --c: #00AA0066;
+}
+
+.code {
+    background: var(--alpha);
+    overflow-x: auto;
+    padding: 1.2rem;
+    border-radius: 0.6rem;
+}
+
+.code:before {
+    content: attr(plang) " language";
+
+    display: block;
+    background: var(--alpha);
+    border-radius: 0.6rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.code::-webkit-scrollbar, .code::-webkit-scrollbar-thumb {
+    border-radius: 0 0 0.6rem 0.6rem;
+}
+
+code, kbd {
+    background: var(--alpha);
+    border-radius: 0.5rem;
+}
+
+kbd {
+    padding: 0.2rem;
+    border: 0.1rem solid var(--secondary-soft);
+}
+
+
+
+#loading-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    background: dodgerblue;
+    animation: load 3s infinite;
+    transition: height 200ms linear;
+
+    --r: 1rem;
+}
+
+#loading-bar.loading {
+    height: 0.4rem;
+}
+
+@keyframes load {
+    0% {
+        width: 0;
+        left: 0;
+
+        border-radius: 0 var(--r) var(--r) 0;
+    }
+
+    30% {
+        border-radius: 0 var(--r) var(--r) 0;
+    }
+
+    50% {
+        width: 100%;
+        left: 0;
+
+        border-radius: 0 0 0 0;
+    }
+
+    70% {
+        border-radius: var(--r) 0 0 var(--r);
+    }
+
+    100% {
+        width: 0;
+        left: 100%;
+
+        border-radius: var(--r) 0 0 var(--r);
+    }
+}

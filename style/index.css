@@ -1,0 +1,59 @@
+@media (prefers-color-scheme: light) {
+    :root {
+        --splash-bg: #00AAFF, #00FFAA;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --splash-bg: #000033, #330033;
+    }
+}
+
+
+
+#header {
+    position: fixed;
+
+    transition: box-shadow, background 100ms linear;
+}
+
+body:not([scroll="0"]) #header {
+    background: var(--bg);
+    box-shadow: var(--b-shadow);
+}
+
+.splash {
+    height: 80vh;
+    background: linear-gradient(30deg, var(--splash-bg));
+    box-shadow: 0 0.6rem 1.2rem var(--shadow);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    font-size: 420%;
+}
+
+#download-btn {
+    color: var(--secondary);
+    --bg: #FFFFFF44;
+    background: var(--bg);
+    border: none;
+    padding: 1.5rem 2rem;
+    font-weight: bold;
+    font-size: 2rem;
+    border-radius: 0.6rem;
+    margin-top: 2rem;
+
+    transition: background 50ms linear;
+}
+
+#download-btn:hover {
+    --bg: #FFFFFF66;
+}
+
+#download-btn:hover:active {
+    --bg: #00000044;
+}
