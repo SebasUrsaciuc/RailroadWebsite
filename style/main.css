@@ -13,6 +13,9 @@
         --sb-bg: #E6E6E6;
         --sbt-bg: #909090;
         --sbt_h-bg: #707070;
+
+        --splash-bg: #00AAFF, #00FFAA;
+        --splash-bg-o: #000033, #330033;
     }
 }
 
@@ -29,6 +32,9 @@
         --sb-bg: #181818;
         --sbt-bg: #505050;
         --sbt_h-bg: #707070;
+
+        --splash-bg: #000033, #330033;
+        --splash-bg-o: #00AAFF, #00FFAA;
     }
 }
 
@@ -63,12 +69,12 @@ body {
 
 #header {
     display: flex;
-    width: 100%;
+    width: auto;
 
     justify-content: center;
 
-    --bg: var(--primary);
-    --b-shadow: 0 0.3rem 0.6rem var(--shadow);
+    background: var(--primary);
+    box-shadow: 0 0.3rem 0.6rem var(--shadow);
 }
 
 #header a {

@@ -1,26 +1,13 @@
-@media (prefers-color-scheme: light) {
-    :root {
-        --splash-bg: #00AAFF, #00FFAA;
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --splash-bg: #000033, #330033;
-    }
-}
-
-
-
 #header {
     position: fixed;
+    width: 100%;
 
     transition: box-shadow, background 100ms linear;
 }
 
-body:not([scroll="0"]) #header {
-    background: var(--bg);
-    box-shadow: var(--b-shadow);
+body[scroll="0"] #header {
+    background: transparent;
+    box-shadow: none;
 }
 
 .splash {
