@@ -10,11 +10,12 @@ function XHR(url, loadend, error = () => {}) {
     };
     xhr.onprogress = function (e) {
         loadingBar.style.width = `${e.loaded / e.total * 100}%`;
+        console.log(e.loaded, e.total, e.loaded / e.total * 100)
     };
     xhr.onloadend = function () {
         loadingBar.classList.remove("loading");
     };
-    xhr.onreadystatechange = function() {
+    xhr.onload = function() {
         if (this.readyState === 4 && this.status === 200)
             loadend(this.responseText);
         else if(this.status === 404) {
